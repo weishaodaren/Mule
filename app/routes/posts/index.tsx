@@ -6,8 +6,12 @@ interface Post {
   title: string;
 }
 
+interface LoaderData {
+  posts: Array<Post>;
+}
+
 export const loader = async () => {
-  return json({
+  return json<LoaderData>({
     posts: [
       {
         slug: "my-first-post",
@@ -17,12 +21,12 @@ export const loader = async () => {
         slug: "90s-mixtape",
         title: "A Mixtape I Made Just For You",
       },
-    ] as Post[],
+    ],
   });
 };
 
 export default function Posts() {
-  const { posts } = useLoaderData() as { posts: Post[] };
+  const { posts } = useLoaderData() as LoaderData;
   console.log(posts);
 
   return (
